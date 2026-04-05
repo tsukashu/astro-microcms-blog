@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const blogs = await getCollection("blogs");
+---
+
+<Layout title="My first blog with Astro">
+ <main>
+   <ul>
+     {
+       blogs.map((blog) => (
+         <li>
+           <a href={blog.id}>{blog.data.title}</a>
+         </li>
+       ))
+     }
+   </ul>
+ </main>
+</Layout>
+
+<style>
+ main {
+   margin: auto;
+   padding: 1em;
+   max-width: 60ch;
+ }
+</style>
