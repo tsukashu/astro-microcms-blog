@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,21 +8,22 @@ export default defineConfig({
     enabled: false,
   },
   server: ({ command }) => ({
-    port: command === "dev" ? 4321 : 1234,
+    port: command === 'dev' ? 4321 : 1234,
   }),
 
   build: {
-    inlineStylesheets: "never",
+    inlineStylesheets: 'never',
   },
   vite: {
     css: {
       devSourcemap: true,
       preprocessorOptions: {
         scss: {
+          includePaths: ['./src/styles/'],
           // when using scss, put global styles like variables and mixins here.
           additionalData: `
-          @use "@/styles/_variables" as *;
-          @use "@/styles/_mixins" as *;
+          @use "variables" as *;
+          @use "mixins" as *;
           `,
         },
       },
