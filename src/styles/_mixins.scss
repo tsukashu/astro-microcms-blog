@@ -1,0 +1,24 @@
+/*
+  Mixins
+*/
+
+// Tablet以上 (768px〜)
+@mixin mq-tab {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+// PC以上 (1024px〜)
+@mixin mq-pc {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+// テキストの1行省略表示
+@mixin text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,120 @@
+/*
+  Modern CSS Reset
+  tsukashu 2026
+  参考: https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+/* ボックスサイズの計算方法を border-box に統一 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*
+  margin / padding のブラウザデフォルトを除去
+  dialog のみ除外: margin: auto（中央揃え）と padding の両方を保護する
+*/
+*:not(dialog) {
+  padding: 0;
+  margin: 0;
+}
+
+/*
+  height: auto / fit-content などキーワード値へのトランジションを有効化
+  prefers-reduced-motion 内に置くことで、モーション制限ユーザーへの影響を防ぐ
+  ブラウザ対応: Chrome/Edge のみ（2026年3月時点）。Safari/Firefox はアニメーションなしで動作する
+  scroll-behavior もモーション制限ユーザーには適用しない
+*/
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+    scroll-behavior: smooth;
+  }
+}
+
+/* iOS Safari でのフォントサイズ自動調整を無効化 */
+html {
+  text-size-adjust: 100%;
+}
+
+/*
+  line-height は _base.css の --line-height-base で一元管理する
+  macOS Chrome/Safari のサブピクセルレンダリングを無効化（Figmaカンプに近いレンダリングになる）
+  Windows / Linux / モバイルには影響なし
+*/
+body {
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+  メディア要素のデフォルトをブロック要素に変更（inline による謎の隙間を防ぐ）
+  max-width: 100% で親要素からのはみ出しを防ぐ
+  注意: viewBox を持たない SVG は height: auto で崩れる場合がある。
+        インラインSVG・アイコンSVGでは必要に応じて height を上書きすること。
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+  フォームコントロールのフォントをページのフォントに合わせる
+  ブラウザデフォルトでは input / textarea / select が独自フォントを持つため
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 長い単語や URL による横溢れを防ぐ */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/*
+  より読みやすいテキスト折り返しアルゴリズムを使用
+  pretty: 段落末尾に1語だけ残る "orphan" を防ぐ
+  balance: 見出しの各行の文字数を均等にする
+  注意: カンプ指定の折り返し位置と異なる場合は text-wrap: unset で上書きすること
+*/
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/*
+  クリック操作時のアウトラインを非表示にし、
+  キーボード操作時のみアウトラインを表示する（アクセシビリティ対応）
+  Highlight はシステムカラーのため OS のアクセントカラーに追従する
+*/
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid Highlight;
+  outline-offset: 2px;
+}
